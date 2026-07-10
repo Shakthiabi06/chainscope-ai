@@ -1,0 +1,32 @@
+{
+  "Apache-2.0": {
+    "risk": "LOW",
+    "compatible": true,
+    "recommendation": "Safe for commercial use."
+  },
+  "MIT": {
+    "risk": "LOW",
+    "compatible": true,
+    "recommendation": "Very permissive license."
+  },
+  "GPL-3.0": {
+    "risk": "HIGH",
+    "compatible": false,
+    "recommendation": "Review before commercial distribution."
+  },
+  "LGPL-3.0": {
+    "risk": "MEDIUM",
+    "compatible": true,
+    "recommendation": "Dynamic linking is generally acceptable."
+  },
+  "BSD-3-Clause": {
+    "risk": "LOW",
+    "compatible": true,
+    "recommendation": "Minimal restrictions."
+  },
+  "Unknown": {
+    "risk": "CRITICAL",
+    "compatible": false,
+    "recommendation": "License unknown. Manual review required."
+  }
+}
