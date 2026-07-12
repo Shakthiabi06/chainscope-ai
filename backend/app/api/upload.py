@@ -4,6 +4,7 @@ from fastapi import APIRouter, UploadFile, File
 
 from app.services.sbom_parser import parse_sbom
 from app.storage import applications, dependencies
+from app.services.graph_service import build_graph
 
 router = APIRouter(
     prefix="/upload",
@@ -36,6 +37,8 @@ async def upload_sbom(file: UploadFile = File(...)):
 
         for dep in app_data.get("dependencies", []):
             dependencies.append(dep)
+
+    build_graph(applications)
 
     return {
         "message": "SBOM uploaded successfully",

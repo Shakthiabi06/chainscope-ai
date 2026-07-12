@@ -1,5 +1,10 @@
 from fastapi import APIRouter
-from app.storage import applications
+
+from app.services.graph_service import (
+    get_graph_data,
+    find_library,
+    attack_path
+)
 
 router = APIRouter(
     prefix="/graph",
@@ -8,33 +13,14 @@ router = APIRouter(
 
 
 @router.get("/")
-def get_graph():
-    nodes = []
-    edges = []
+def graph():
+    return get_graph_data()
 
-    for app in applications:
-        app_name = app["name"]
+@router.get("/dependency/{library_name}")
+def dependency(library_name: str):
+    return find_library(library_name)
 
-        nodes.append({
-            "id": app_name,
-            "type": "application"
-        })
 
-        for dep in app.get("dependencies", []):
-            nodes.append({
-                "id": dep["name"],
-                "type": "library"
-            })
-
-            edges.append({
-                "source": app_name,
-                "target": dep["name"]
-            })
-
-    # remove duplicate nodes
-    unique_nodes = list({node["id"]: node for node in nodes}.values())
-
-    return {
-        "nodes": unique_nodes,
-        "edges": edges
-    }
+@router.get("/attack-path/{application}")
+def path(application: str):
+    return attack_path(application)
