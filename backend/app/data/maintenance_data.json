@@ -1,0 +1,27 @@
+{
+  "log4j": {
+    "last_updated": "2025",
+    "deprecated": false,
+    "security_policy": true
+  },
+  "spring-core": {
+    "last_updated": "2025",
+    "deprecated": false,
+    "security_policy": true
+  },
+  "commons-logging": {
+    "last_updated": "2019",
+    "deprecated": true,
+    "security_policy": false
+  },
+  "hibernate": {
+    "last_updated": "2024",
+    "deprecated": false,
+    "security_policy": true
+  },
+  "mysql-connector": {
+    "last_updated": "2023",
+    "deprecated": false,
+    "security_policy": true
+  }
+}

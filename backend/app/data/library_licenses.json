@@ -1,0 +1,8 @@
+{
+  "log4j": "Apache-2.0",
+  "spring-core": "Apache-2.0",
+  "commons-logging": "Apache-2.0",
+  "hibernate": "LGPL-2.1",
+  "mysql-connector": "GPL-2.0",
+  "unknown-lib": "Unknown"
+}
