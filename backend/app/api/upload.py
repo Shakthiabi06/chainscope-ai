@@ -24,14 +24,14 @@ async def upload_sbom(file: UploadFile = File(...)):
     # Parse the uploaded file
     data = parse_sbom(filepath)
 
-    # 👇 ADD THIS SECTION HERE
     applications.clear()
     dependencies.clear()
 
     for app_data in data:
         applications.append({
             "name": app_data.get("name"),
-            "business_criticality": app_data.get("business_criticality", 3)
+            "business_criticality": app_data.get("business_criticality", 3),
+            "dependencies": app_data.get("dependencies", [])
         })
 
         for dep in app_data.get("dependencies", []):
