@@ -6,6 +6,7 @@ from app.api.upload import router as upload_router
 from app.api.applications import router as applications_router
 from app.api.dependencies import router as dependencies_router
 from app.api.vulnerabilities import router as vulnerabilities_router
+from app.api.risk import router as risk_router
 
 app = FastAPI(
     title="ChainScope-AI API",
@@ -19,6 +20,7 @@ app.include_router(upload_router)
 app.include_router(applications_router)
 app.include_router(dependencies_router)
 app.include_router(vulnerabilities_router)
+app.include_router(risk_router)
 
 
 @app.get("/")
