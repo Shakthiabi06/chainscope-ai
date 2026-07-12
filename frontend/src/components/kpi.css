@@ -5,17 +5,26 @@
     margin-top:35px;
 }
 
-.kpi-card{
-    background:white;
-    padding:26px;
-    border-radius:22px;
-    border:1px solid #ececec;
-    box-shadow:0 8px 24px rgba(0,0,0,.05);
-    transition:.2s;
+.kpi-card {
+
+background:white;
+
+border-radius:18px;
+
+padding:25px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.08);
+
+transition:.2s;
+
 }
 
-.kpi-card:hover{
-    transform:translateY(-4px);
+
+.kpi-card:hover {
+
+transform:translateY(-5px);
+
 }
 
 .kpi-card p{
@@ -44,4 +53,15 @@
 
 .kpi-card:nth-child(4){
     border-left:6px solid #ef4444;
+}
+
+.risk-high {
+color:#dc2626;
+font-weight:bold;
+}
+.risk-medium {
+color:#f59e0b;
+}
+.risk-low {
+color:#16a34a;
 }

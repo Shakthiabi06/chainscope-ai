@@ -1,12 +1,38 @@
-function RiskAnalysis(){
+import Sidebar from "../components/Sidebar";
+import RiskTable from "../components/RiskTable";
 
-    return (
-        <div>
-            <h1>Risk Analysis</h1>
-            <p>Comprehensive risk assessment and mitigation strategies.</p>
-        </div>
-    )
+
+function Risk(){
+
+  return (
+
+    <div className="layout">
+
+      <Sidebar />
+
+
+      <main className="content">
+
+        <h1>
+          Risk Analysis
+        </h1>
+
+        <p>
+          Prioritized software supply chain risks
+        </p>
+
+
+        <RiskTable />
+
+
+      </main>
+
+
+    </div>
+
+  )
 
 }
 
-export default RiskAnalysis
+
+export default Risk;
