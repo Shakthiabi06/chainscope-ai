@@ -1,3 +1,8 @@
+import os
+
+from app.services.sbom_parser import parse_sbom
+from app.services.graph_service import build_graph
+from app.storage import applications, dependencies
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.license import router as license_router
@@ -46,3 +51,38 @@ def home():
 @app.get("/health")
 def health():
     return {"status": "healthy"}
+
+def load_sample_data():
+
+    filepath = "uploads/sample_sbom.json"
+
+    if os.path.exists(filepath):
+
+        data = parse_sbom(filepath)
+
+        applications.clear()
+        dependencies.clear()
+
+        for app_data in data:
+
+            applications.append({
+                "name": app_data.get("name"),
+                "business_criticality": app_data.get(
+                    "business_criticality",
+                    3
+                ),
+                "dependencies": app_data.get(
+                    "dependencies",
+                    []
+                )
+            })
+
+            for dep in app_data.get("dependencies", []):
+                dependencies.append(dep)
+
+        build_graph(applications)
+
+        print("Sample SBOM loaded successfully")
+
+
+load_sample_data()

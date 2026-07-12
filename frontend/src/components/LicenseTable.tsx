@@ -10,27 +10,41 @@ type LicenseInfo = {
 };
 
 function LicenseTable() {
-  const [data, setData] = useState<LicenseInfo[]>([]);
+    const [data, setData] = useState<LicenseInfo[]>([]);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const libraries = await API.get("/dependencies/");
+    useEffect(() => {
+        async function load() {
+            try {
 
-        const results = await Promise.all(
-          libraries.data.map((lib: any) =>
-            API.get(`/license/${lib.name}`)
-          )
-        );
+            const libraries = await API.get("/dependencies/");
 
-        setData(results.map((r) => r.data));
-      } catch (err) {
-        console.log(err);
-      }
-    }
+            console.log("Dependencies:", libraries.data);
 
-    load();
-  }, []);
+
+            const results = await Promise.all(
+                libraries.data.map((lib: any) =>
+                API.get(`/license/${encodeURIComponent(lib.name)}`)
+                )
+            );
+
+
+            console.log(
+                "License results:",
+                results.map(r => r.data)
+            );
+
+
+            setData(results.map((r) => r.data));
+
+
+            } catch (err) {
+            console.log("License loading failed:", err);
+            }
+        }
+
+        load();
+
+    }, []);
 
   return (
     <div className="graph-card">
