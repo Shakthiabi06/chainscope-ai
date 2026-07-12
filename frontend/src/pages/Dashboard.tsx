@@ -4,6 +4,7 @@ import "./dashboard.css"
 import GraphCard from "../components/GraphCard"
 import LicenseTable from "../components/LicenseTable";
 import MaintenanceTable from "../components/MaintenanceTable";
+import SBOMUpload from "../components/SBOMUpload";
 
 function Dashboard() {
   return (
@@ -25,6 +26,7 @@ function Dashboard() {
 
         </header>
 
+        <SBOMUpload />
         <KPICards />
         <GraphCard />
         <LicenseTable />
