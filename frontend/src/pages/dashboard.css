@@ -23,22 +23,70 @@
     color:#FFC107;
 }
 
-.sidebar nav div{
-    padding:14px 18px;
-    margin-bottom:12px;
-    border-radius:16px;
-    transition:.2s;
-    cursor:pointer;
+.sidebar {
+  width: 250px;
+  background: #111111;
+  color: white;
+  padding: 30px 20px;
+  min-height:100vh;
 }
 
-.sidebar nav div:hover{
-    background:#1f1f1f;
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom:50px;
 }
 
-.sidebar nav .active{
-    background:#FFC107;
-    color:#111;
-    font-weight:600;
+
+.logo span {
+  color:#ffc107;
+}
+
+
+.sidebar nav {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+
+.menu-item {
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  padding:14px 16px;
+
+  color:#cccccc;
+
+  text-decoration:none;
+
+  border-radius:12px;
+
+  transition:0.2s;
+
+}
+
+
+.menu-item:hover {
+
+  background:#222222;
+
+  color:white;
+
+}
+
+
+.menu-item.active {
+
+  background:#ffc107;
+
+  color:#111111;
+
+  font-weight:600;
+
 }
 
 .content{
