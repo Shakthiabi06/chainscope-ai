@@ -2,7 +2,6 @@ import Sidebar from "../components/Sidebar"
 import KPICards from "../components/KPICards"
 import "./dashboard.css"
 import GraphCard from "../components/GraphCard"
-import VulnerabilityTable from "../components/VulnerabilityTable";
 import LicenseTable from "../components/LicenseTable";
 import MaintenanceTable from "../components/MaintenanceTable";
 
@@ -28,7 +27,6 @@ function Dashboard() {
 
         <KPICards />
         <GraphCard />
-        <VulnerabilityTable />
         <LicenseTable />
         <MaintenanceTable />
 
