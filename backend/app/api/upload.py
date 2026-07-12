@@ -17,6 +17,7 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/")
 async def upload_sbom(file: UploadFile = File(...)):
+    print("UPLOAD ENDPOINT HIT")
     filepath = os.path.join(UPLOAD_DIR, file.filename)
 
     with open(filepath, "wb") as buffer:
@@ -24,6 +25,8 @@ async def upload_sbom(file: UploadFile = File(...)):
 
     # Parse the uploaded file
     data = parse_sbom(filepath)
+    print("PARSED DATA:")
+    print(data)
 
     applications.clear()
     dependencies.clear()
@@ -39,6 +42,12 @@ async def upload_sbom(file: UploadFile = File(...)):
             dependencies.append(dep)
 
     build_graph(applications)
+
+    print("APPLICATIONS:")
+    print(applications)
+
+    print("DEPENDENCIES:")
+    print(dependencies)
 
     return {
         "message": "SBOM uploaded successfully",

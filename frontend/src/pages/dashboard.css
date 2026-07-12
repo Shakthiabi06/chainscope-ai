@@ -74,3 +74,25 @@
 .graph-container{
     height:450px;
 }
+
+.vuln-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.vuln-table th{
+    text-align:left;
+    padding:16px;
+    background:#111;
+    color:white;
+}
+
+.vuln-table td{
+    padding:16px;
+    border-bottom:1px solid #ececec;
+}
+
+.vuln-table tr:hover{
+    background:#fafafa;
+}

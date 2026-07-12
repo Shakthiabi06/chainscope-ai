@@ -29,7 +29,17 @@ function KPICards() {
           applications: apps.data.length,
           dependencies: deps.data.length,
           vulnerabilities: vulns.data.length,
-          risk: risk.data.average_risk || 0
+          risk:
+            risk.data.length > 0
+                ? Math.round(
+                    (
+                    risk.data.reduce(
+                        (sum: number, item: any) => sum + item.risk_score,
+                        0
+                    ) / risk.data.length
+                    ) * 10
+                ) / 10
+                : 0
         });
 
 
