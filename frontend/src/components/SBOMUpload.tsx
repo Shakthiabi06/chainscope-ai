@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
+import "./upload.css";
 
 
 function SBOMUpload(){
@@ -56,7 +57,7 @@ function SBOMUpload(){
 
   return (
 
-    <div className="graph-card">
+    <div className="upload-box">
 
       <h2>
         Upload SBOM
@@ -78,11 +79,9 @@ function SBOMUpload(){
       />
 
 
-      <button
-        onClick={upload}
-      >
-        Analyze SBOM
-      </button>
+        <button className="upload-btn" onClick={upload}>
+            Analyze SBOM
+        </button>
 
 
       {

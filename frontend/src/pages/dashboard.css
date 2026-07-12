@@ -132,16 +132,26 @@
     margin-top:20px;
 }
 
-.vuln-table th{
+.vuln-table th {
+
+    background:#f8fafc;
+
+    color:#1f2937;
+
+    padding:14px;
+
     text-align:left;
-    padding:16px;
-    background:#111;
-    color:white;
+
 }
 
-.vuln-table td{
-    padding:16px;
-    border-bottom:1px solid #ececec;
+.vuln-table td {
+
+    color:#334155;
+
+    padding:14px;
+
+    border-bottom:1px solid #e5e7eb;
+
 }
 
 .vuln-table tr:hover{
