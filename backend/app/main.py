@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.license import router as license_router
 from app.api.maintenance import router as maintenance_router
 from app.api.upload import router as upload_router
@@ -13,6 +13,16 @@ app = FastAPI(
     title="ChainScope-AI API",
     description="Software Supply Chain Risk Analysis Platform",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(license_router)

@@ -40,6 +40,50 @@ def get_graph_data():
 
     unique_nodes = {n["id"]: n for n in nodes}
 
+    # Demo fallback if no SBOM is uploaded
+    if len(unique_nodes) == 0:
+
+        return {
+            "nodes": [
+                {
+                    "id": "Payment Application",
+                    "type": "application"
+                },
+                {
+                    "id": "Log4j",
+                    "type": "library"
+                },
+                {
+                    "id": "Spring Boot",
+                    "type": "library"
+                },
+                {
+                    "id": "Customer Portal",
+                    "type": "application"
+                },
+                {
+                    "id": "React",
+                    "type": "library"
+                }
+            ],
+
+            "edges": [
+                {
+                    "source": "Payment Application",
+                    "target": "Log4j"
+                },
+                {
+                    "source": "Payment Application",
+                    "target": "Spring Boot"
+                },
+                {
+                    "source": "Customer Portal",
+                    "target": "React"
+                }
+            ]
+        }
+
+
     return {
         "nodes": list(unique_nodes.values()),
         "edges": edges
