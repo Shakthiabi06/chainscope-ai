@@ -29,37 +29,28 @@ function GraphCard() {
         const data = await response.json();
 
 
-        const graphNodes = data.nodes.map(
-          (node:any, index:number)=>({
-
-            id: node.id,
-
-            position:{
-              x: (index % 3) * 250,
-              y: Math.floor(index / 3) * 150
-            },
-
-            data:{
-              label: node.id
-            }
-
-          })
+        const graphNodes: Node[] = data.nodes.map(
+            (node: { id: string }, index: number) => ({
+                id: node.id,
+                type: "default",
+                position: {
+                x: (index % 3) * 250,
+                y: Math.floor(index / 3) * 150,
+                },
+                data: {
+                label: node.id,
+                },
+            })
         );
 
 
-        const graphEdges = data.edges.map(
-          (edge:any)=>({
-
-            id:
-              `${edge.source}-${edge.target}`,
-
-            source:
-              edge.source,
-
-            target:
-              edge.target
-
-          })
+        const graphEdges: Edge[] = data.edges.map(
+            (edge: { source: string; target: string }) => ({
+                id: `${edge.source}-${edge.target}`,
+                source: edge.source,
+                target: edge.target,
+                animated: true,
+            })
         );
 
 
