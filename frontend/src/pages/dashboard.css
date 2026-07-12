@@ -178,3 +178,26 @@
 .vuln-table tr:hover {
   background: #f7f7f7;
 }
+
+.risk-summary{
+    padding:20px;
+    text-align:center;
+}
+
+
+.risk-summary h1{
+    font-size:42px;
+}
+
+
+.risk-summary p{
+    font-weight:bold;
+}
+
+
+
+.severity{
+    padding:6px 12px;
+    border-radius:12px;
+    font-size:13px;
+}

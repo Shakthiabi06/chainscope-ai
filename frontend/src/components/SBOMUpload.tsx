@@ -67,7 +67,7 @@ function SBOMUpload(){
 
     <div className="upload-box">
 
-      <h2>
+      <h2 id="upload-title">
         Upload SBOM
       </h2>
 
