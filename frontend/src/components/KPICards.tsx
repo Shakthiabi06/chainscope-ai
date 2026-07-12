@@ -1,64 +1,178 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { SBOM_EVENT } from "../services/events";
 import "./kpi.css";
 
 
-function KPICards() {
+type KPIData = {
 
-  const [data, setData] = useState({
-    applications: 0,
-    dependencies: 0,
-    vulnerabilities: 0,
-    risk: 0
+  applications:number;
+  dependencies:number;
+  vulnerabilities:number;
+  risk:number;
+
+};
+
+
+
+function KPICards(){
+
+
+  const [data,setData] = useState<KPIData>({
+
+    applications:0,
+    dependencies:0,
+    vulnerabilities:0,
+    risk:0
+
   });
 
 
-  useEffect(() => {
 
-    async function loadData(){
+  async function loadData(){
 
-      try {
+    try{
 
-        const apps = await API.get("/applications/");
-        const deps = await API.get("/dependencies/");
-        const vulns = await API.get("/vulnerabilities/");
-        const risk = await API.get("/risk/");
 
+      const status =
+        await API.get("/status/");
+
+
+      const scanCompleted =
+        status.data.scan_completed;
+
+
+
+      if(!scanCompleted){
 
         setData({
-          applications: apps.data.length,
-          dependencies: deps.data.length,
-          vulnerabilities: vulns.data.length,
-          risk:
-            risk.data.length > 0
-                ? Math.round(
-                    (
-                    risk.data.reduce(
-                        (sum: number, item: any) => sum + item.risk_score,
-                        0
-                    ) / risk.data.length
-                    ) * 10
-                ) / 10
-                : 0
+
+          applications:0,
+          dependencies:0,
+          vulnerabilities:0,
+          risk:0
+
         });
 
-
-      } catch(error){
-
-        console.log(error);
+        return;
 
       }
 
+
+
+      const [
+        apps,
+        deps,
+        vulns,
+        risk
+      ] = await Promise.all([
+
+        API.get("/applications/"),
+
+        API.get("/dependencies/"),
+
+        API.get("/vulnerabilities/"),
+
+        API.get("/risk/")
+
+      ]);
+
+
+
+      const riskScore =
+        risk.data.length > 0
+        ?
+        Math.round(
+
+          (
+            risk.data.reduce(
+              (
+                sum:number,
+                item:any
+              ) =>
+                sum + item.risk_score,
+
+              0
+            )
+            /
+            risk.data.length
+
+          )
+          *10
+
+        ) / 10
+
+        :
+        0;
+
+
+
+      setData({
+
+        applications:
+          apps.data.length,
+
+        dependencies:
+          deps.data.length,
+
+        vulnerabilities:
+          vulns.data.length,
+
+        risk:
+          riskScore
+
+      });
+
+
+
     }
+    catch(error){
+
+      console.log(error);
+
+    }
+
+  }
+
+
+
+  useEffect(()=>{
 
 
     loadData();
 
-  }, []);
+
+
+    function refresh(){
+
+      loadData();
+
+    }
 
 
 
-  const cards = [
+    window.addEventListener(
+      SBOM_EVENT,
+      refresh
+    );
+
+
+
+    return ()=>{
+
+      window.removeEventListener(
+        SBOM_EVENT,
+        refresh
+      );
+
+    };
+
+
+  },[]);
+
+
+
+  const cards=[
 
     {
       title:"Applications",
@@ -91,11 +205,18 @@ function KPICards() {
       {
         cards.map(card=>(
 
-          <div className="kpi-card" key={card.title}>
+          <div
+            className="kpi-card"
+            key={card.title}
+          >
 
-            <p>{card.title}</p>
+            <p>
+              {card.title}
+            </p>
 
-            <h2>{card.value}</h2>
+            <h2>
+              {card.value}
+            </h2>
 
           </div>
 
@@ -104,7 +225,7 @@ function KPICards() {
 
     </div>
 
-  )
+  );
 
 }
 

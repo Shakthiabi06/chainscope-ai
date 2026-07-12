@@ -2,11 +2,23 @@
 
     padding:25px;
 
-    background:#111827;
+    background:#111;
 
     border-radius:16px;
 
     margin-bottom:25px;
+
+}
+
+#upload-title {
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
 
 }
 
@@ -22,7 +34,7 @@
 
 .upload-btn {
 
-    background:#22c55e;
+    background:#ffc107;
 
     color:black;
 

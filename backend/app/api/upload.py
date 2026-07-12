@@ -1,9 +1,8 @@
 import os
 
 from fastapi import APIRouter, UploadFile, File
-
+import app.storage as storage
 from app.services.sbom_parser import parse_sbom
-from app.storage import applications, dependencies
 from app.services.graph_service import build_graph
 
 router = APIRouter(
@@ -28,29 +27,31 @@ async def upload_sbom(file: UploadFile = File(...)):
     print("PARSED DATA:")
     print(data)
 
-    applications.clear()
-    dependencies.clear()
+    storage.applications.clear()
+    storage.dependencies.clear()
 
     for app_data in data:
-        applications.append({
+        storage.applications.append({
             "name": app_data.get("name"),
             "business_criticality": app_data.get("business_criticality", 3),
             "dependencies": app_data.get("dependencies", [])
         })
 
         for dep in app_data.get("dependencies", []):
-            dependencies.append(dep)
+            storage.dependencies.append(dep)
 
-    build_graph(applications)
+    build_graph(storage.applications)
 
     print("APPLICATIONS:")
-    print(applications)
+    print(storage.applications)
 
     print("DEPENDENCIES:")
-    print(dependencies)
+    print(storage.dependencies)
+
+    storage.scan_completed = True
 
     return {
         "message": "SBOM uploaded successfully",
-        "applications_loaded": len(applications),
-        "dependencies_loaded": len(dependencies)
+        "applications_loaded": len(storage.applications),
+        "dependencies_loaded": len(storage.dependencies)
     }

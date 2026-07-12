@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../services/api";
+import { notifySBOMUpload } from "../services/events";
 import "./upload.css";
 
 
@@ -13,6 +14,7 @@ function SBOMUpload(){
   async function upload(){
 
     if(!file){
+      setMessage("Please select an SBOM file");
       return;
     }
 
@@ -38,12 +40,18 @@ function SBOMUpload(){
       );
 
 
-      setMessage(res.data.message);
+      setMessage(
+        res.data.message
+      );
+
+
+      notifySBOMUpload();
+
 
     }
-    catch(err){
+    catch(error){
 
-      console.log(err);
+      console.log(error);
 
       setMessage(
         "Upload failed"
@@ -65,23 +73,22 @@ function SBOMUpload(){
 
 
       <input
-
         type="file"
-
         accept=".json"
-
         onChange={(e)=>
           setFile(
             e.target.files?.[0] || null
           )
         }
-
       />
 
 
-        <button className="upload-btn" onClick={upload}>
-            Analyze SBOM
-        </button>
+      <button
+        className="upload-btn"
+        onClick={upload}
+      >
+        Analyze SBOM
+      </button>
 
 
       {
@@ -94,7 +101,7 @@ function SBOMUpload(){
 
     </div>
 
-  )
+  );
 
 }
 

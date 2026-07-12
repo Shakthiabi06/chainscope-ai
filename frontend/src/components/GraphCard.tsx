@@ -1,83 +1,133 @@
 import { useEffect, useState } from "react";
 
-import type { Node, Edge } from "reactflow";
-
-import "reactflow/dist/style.css";
-
 import ReactFlow, {
-  ReactFlowProvider,
   Background,
   Controls
 } from "reactflow";
 
+import type { Node, Edge } from "reactflow";
+
+import "reactflow/dist/style.css";
+
+import { SBOM_EVENT } from "../services/events";
+
 
 function GraphCard() {
 
-  const [nodes, setNodes] = useState<Node[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
+
+  const [nodes,setNodes] = useState<Node[]>([]);
+
+  const [edges,setEdges] = useState<Edge[]>([]);
 
 
-  useEffect(() => {
 
-    async function loadGraph(){
+  async function loadGraph(){
 
-      try {
-
-        const response = await fetch(
-          "http://127.0.0.1:8000/graph/"
-        );
-
-        const data = await response.json();
+    try{
 
 
-        const graphNodes: Node[] = data.nodes.map(
-            (node: { id: string }, index: number) => ({
-                id: node.id,
-                type: "default",
-                position: {
-                x: (index % 3) * 250,
-                y: Math.floor(index / 3) * 150,
-                },
-                data: {
-                label: node.id,
-                },
-            })
-        );
+      const response = await fetch(
+        "http://127.0.0.1:8000/graph/"
+      );
 
 
-        const graphEdges: Edge[] = data.edges.map(
-            (edge: { source: string; target: string }) => ({
-                id: `${edge.source}-${edge.target}`,
-                source: edge.source,
-                target: edge.target,
-                animated: true,
-            })
-        );
+      const data = await response.json();
 
 
-        setNodes(graphNodes);
-        setEdges(graphEdges);
-        console.log("GRAPH NODES", graphNodes);
-        console.log("GRAPH EDGES", graphEdges);
+
+      const graphNodes = data.nodes.map(
+        (node:any,index:number)=>({
+
+          id: node.id,
 
 
-      }
-      catch(error){
+          position:{
+            x:(index % 3) * 250,
+            y:Math.floor(index / 3) * 150
+          },
 
-        console.log(
-          "Graph loading failed",
-          error
-        );
 
-      }
+          data:{
+            label:node.id
+          }
+
+        })
+      );
+
+
+
+      const graphEdges = data.edges.map(
+        (edge:any)=>({
+
+          id:
+            `${edge.source}-${edge.target}`,
+
+          source:
+            edge.source,
+
+          target:
+            edge.target
+
+        })
+      );
+
+
+
+      setNodes(graphNodes);
+
+      setEdges(graphEdges);
+
+
 
     }
+    catch(error){
+
+      console.log(
+        "Graph loading failed",
+        error
+      );
+
+    }
+
+  }
+
+
+
+
+  useEffect(()=>{
 
 
     loadGraph();
 
 
-  }, []);
+
+    function refresh(){
+
+      loadGraph();
+
+    }
+
+
+
+    window.addEventListener(
+      SBOM_EVENT,
+      refresh
+    );
+
+
+
+    return ()=>{
+
+      window.removeEventListener(
+        SBOM_EVENT,
+        refresh
+      );
+
+    };
+
+
+  },[]);
+
 
 
 
@@ -85,24 +135,32 @@ function GraphCard() {
 
     <div className="graph-card">
 
-        <h2>
-            Dependency Graph
-        </h2>
+      <h2>
+        Dependency Graph
+      </h2>
 
 
-        <div className="graph-container">
-            <ReactFlowProvider>
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    fitView
-                    defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-                >
-                <Background />
-                <Controls />
-                </ReactFlow>
-            </ReactFlowProvider>
-        </div>
+      <div className="graph-container">
+
+
+        <ReactFlow
+
+          nodes={nodes}
+
+          edges={edges}
+
+          fitView
+
+        >
+
+          <Background />
+
+          <Controls />
+
+        </ReactFlow>
+
+
+      </div>
 
 
     </div>

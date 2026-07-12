@@ -13,6 +13,7 @@ from app.api.dependencies import router as dependencies_router
 from app.api.vulnerabilities import router as vulnerabilities_router
 from app.api.risk import router as risk_router
 from app.api.graph import router as graph_router
+from app.api.status import router as status_router
 
 app = FastAPI(
     title="ChainScope-AI API",
@@ -38,6 +39,7 @@ app.include_router(dependencies_router)
 app.include_router(vulnerabilities_router)
 app.include_router(risk_router)
 app.include_router(graph_router)
+app.include_router(status_router)
 
 
 @app.get("/")
