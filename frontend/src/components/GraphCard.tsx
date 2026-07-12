@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
-import ReactFlow, {
-  Background,
-  Controls
-} from "reactflow";
-
 import type { Node, Edge } from "reactflow";
 
 import "reactflow/dist/style.css";
+
+import ReactFlow, {
+  ReactFlowProvider,
+  Background,
+  Controls
+} from "reactflow";
 
 
 function GraphCard() {
@@ -84,26 +85,24 @@ function GraphCard() {
 
     <div className="graph-card">
 
-      <h2>
-        Dependency Graph
-      </h2>
+        <h2>
+            Dependency Graph
+        </h2>
 
 
-      <div className="graph-container">
-
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          fitView
-        >
-
-          <Background />
-
-          <Controls />
-
-        </ReactFlow>
-
-      </div>
+        <div className="graph-container">
+            <ReactFlowProvider>
+                <ReactFlow
+                    nodes={nodes}
+                    edges={edges}
+                    fitView
+                    defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+                >
+                <Background />
+                <Controls />
+                </ReactFlow>
+            </ReactFlowProvider>
+        </div>
 
 
     </div>
