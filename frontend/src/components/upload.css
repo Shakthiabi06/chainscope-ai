@@ -58,3 +58,15 @@
     transform:translateY(-2px);
 
 }
+
+button {
+    border:none;
+    padding:10px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+button:hover{
+    opacity:0.85;
+}
