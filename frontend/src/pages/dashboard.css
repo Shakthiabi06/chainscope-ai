@@ -96,3 +96,24 @@
 .vuln-table tr:hover{
     background:#fafafa;
 }
+
+.vuln-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.vuln-table th,
+.vuln-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: left;
+}
+
+.vuln-table th {
+  background: #fafafa;
+}
+
+.vuln-table tr:hover {
+  background: #f7f7f7;
+}
