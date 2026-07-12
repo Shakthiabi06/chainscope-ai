@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom";
+
 import {
-  LayoutDashboard,
-  Boxes,
-  Package,
-  ShieldAlert,
-  Activity,
-  FileText
-} from "lucide-react";
+  MdDashboard,
+  MdApps,
+  MdInventory,
+  MdSecurity,
+  MdAnalytics,
+  MdDescription
+} from "react-icons/md";
+
 
 function Sidebar() {
 
@@ -14,32 +16,32 @@ function Sidebar() {
     {
       name: "Dashboard",
       path: "/",
-      icon: LayoutDashboard
+      icon: MdDashboard
     },
     {
       name: "Applications",
       path: "/applications",
-      icon: Boxes
+      icon: MdApps
     },
     {
       name: "Dependencies",
       path: "/dependencies",
-      icon: Package
+      icon: MdInventory
     },
     {
       name: "Vulnerabilities",
       path: "/vulnerabilities",
-      icon: ShieldAlert
+      icon: MdSecurity
     },
     {
       name: "Risk Analysis",
       path: "/risk",
-      icon: Activity
+      icon: MdAnalytics
     },
     {
       name: "Reports",
       path: "/reports",
-      icon: FileText
+      icon: MdDescription
     }
   ];
 
@@ -66,11 +68,13 @@ function Sidebar() {
                 key={item.path}
                 to={item.path}
                 className={({isActive}) =>
-                  isActive ? "menu-item active" : "menu-item"
+                  isActive
+                    ? "menu-item active"
+                    : "menu-item"
                 }
               >
 
-                <Icon size={20}/>
+                <Icon size={22}/>
 
                 <span>
                   {item.name}
@@ -91,6 +95,5 @@ function Sidebar() {
   )
 
 }
-
 
 export default Sidebar;
