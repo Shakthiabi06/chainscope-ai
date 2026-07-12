@@ -4,6 +4,8 @@ from app.api.license import router as license_router
 from app.api.maintenance import router as maintenance_router
 from app.api.upload import router as upload_router
 from app.api.applications import router as applications_router
+from app.api.dependencies import router as dependencies_router
+from app.api.vulnerabilities import router as vulnerabilities_router
 
 app = FastAPI(
     title="ChainScope-AI API",
@@ -15,6 +17,8 @@ app.include_router(license_router)
 app.include_router(maintenance_router)
 app.include_router(upload_router)
 app.include_router(applications_router)
+app.include_router(dependencies_router)
+app.include_router(vulnerabilities_router)
 
 
 @app.get("/")

@@ -3,4 +3,9 @@ import json
 
 def parse_sbom(filepath):
     with open(filepath, "r") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    if isinstance(data, list):
+        return data
+
+    return [data]
